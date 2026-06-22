@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { ArrowRight, Download, Mail, MapPin, Sparkles } from 'lucide-react'
-import profileImage from '../assets/image.png'
+import profileImage from '/image.png'
 
 const GitHubIcon = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
