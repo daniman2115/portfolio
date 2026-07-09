@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { ExternalLink, ArrowRight, Star, GitFork } from 'lucide-react'
 
+import chatBot from '/chatbot.png'
+import movieApp from '/movie-app.png'
+import AIMDS from '/AIMDS.png'
+
 const GitHubIcon = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
@@ -9,46 +13,43 @@ const GitHubIcon = ({ className }) => (
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
+    title: 'Movie App',
     description:
-      'Full-stack e-commerce solution with product catalog, cart management, Stripe payments, real-time inventory, and an admin dashboard.',
-    tags: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Redis'],
-    github: 'https://github.com',
+      'A responsive movie discovery platform that lets users search, browse, and save their favourite films. Integrates the TMDb API for real-time data including ratings, trailers, cast info, and personalized watchlists stored in local state.',
+    tags: ['React Native(Expo)', 'TMDb API', 'Tailwind CSS', 'Context API'],
+    github: 'https://github.com/daniman2115/react-native-movie-app',
     live: 'https://example.com',
-    stars: 128,
-    forks: 34,
-    gradient: 'from-blue-600 via-indigo-600 to-violet-600',
+    // stars: 42,
+    // forks: 12,
     glow: 'group-hover:shadow-blue-500/20',
-    badge: 'Full-Stack',
-    emoji: '🛒',
+    badge: 'Front-End',
+    image: movieApp,
   },
   {
     title: 'Real-Time Chat App',
     description:
-      'Scalable messaging platform with rooms, presence indicators, typing events, file sharing, and message persistence using WebSockets.',
-    tags: ['React', 'Socket.io', 'Node.js', 'Redis', 'MongoDB'],
-    github: 'https://github.com',
-    live: 'https://example.com',
-    stars: 94,
-    forks: 21,
-    gradient: 'from-violet-600 via-fuchsia-600 to-pink-600',
+      'A full-stack messaging application featuring presence indicators, typing status, and persistent message history. Built for horizontal scalability across multiple server instances.',
+    tags: ['React', 'Socket.io', 'Google API'],
+    github: 'https://github.com/daniman2115/chatbot-with-react-css',
+    live: 'https://chatbot-with-react-css.onrender.com',
+    // stars: 94,
+    // forks: 21,
     glow: 'group-hover:shadow-violet-500/20',
-    badge: 'Real-Time',
-    emoji: '💬',
+    badge: 'Full-Stack',
+    image: chatBot,
   },
   {
-    title: 'DevOps Dashboard',
+    title: 'Agricultural Inputs Management and Distribution System',
     description:
-      'Unified monitoring dashboard aggregating CI/CD pipeline statuses, server metrics, and deployment logs across cloud providers.',
-    tags: ['Next.js', 'TypeScript', 'Docker', 'AWS', 'Grafana'],
+      'An end-to-end platform for managing the procurement, storage, and distribution of agricultural inputs such as seeds, fertilizers, and pesticides. Includes supplier management, stock tracking, order workflows, and reporting dashboards for farm cooperatives.',
+    tags: ['React', 'Node.js', 'MongoDB', 'Express', 'REST API', "Socket.io", "Tailwind CSS", "Material UI"],
     github: 'https://github.com',
-    live: 'https://example.com',
-    stars: 76,
-    forks: 18,
-    gradient: 'from-emerald-600 via-teal-600 to-cyan-600',
+    live: 'https://agri-demo.onrender.com/',
+    // stars: 31,
+    // forks: 9,
     glow: 'group-hover:shadow-emerald-500/20',
-    badge: 'DevOps',
-    emoji: '📊',
+    badge: 'Full-Stack',
+    image: AIMDS,
   },
 ]
 
@@ -62,31 +63,23 @@ function ProjectCard({ project, index }) {
       onMouseLeave={() => setHovered(false)}
       style={{ animationDelay: `${index * 120}ms` }}
     >
-      {/* Gradient header */}
-      <div className={`relative h-36 bg-gradient-to-br ${project.gradient} overflow-hidden`}>
-        {/* Pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)',
-            backgroundSize: '24px 24px',
-          }}
+      {/* Project image */}
+      <div className="relative h-48 overflow-hidden bg-[#0a0a14]">
+        <img
+          src={project.image}
+          alt={project.title}
+          className={`w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-110' : 'scale-100'}`}
         />
-        {/* Emoji */}
+        {/* Dark overlay that lightens on hover */}
         <div
-          className={`absolute bottom-4 left-5 text-4xl transition-transform duration-500 ${hovered ? 'scale-110' : 'scale-100'}`}
-        >
-          {project.emoji}
-        </div>
+          className={`absolute inset-0 bg-black transition-opacity duration-500 ${hovered ? 'opacity-20' : 'opacity-40'}`}
+        />
         {/* Badge */}
-        <span className="absolute top-4 right-4 text-xs font-medium text-white/80 bg-black/25 backdrop-blur-sm border border-white/15 px-2.5 py-1 rounded-full">
+        <span className="absolute top-3 right-3 text-xs font-medium text-white/90 bg-black/50 backdrop-blur-md border border-white/15 px-2.5 py-1 rounded-full">
           {project.badge}
         </span>
-        {/* Hover shimmer */}
-        <div
-          className={`absolute inset-0 bg-white/5 transition-opacity duration-300 ${hovered ? 'opacity-100' : 'opacity-0'}`}
-        />
+        {/* Bottom fade into card */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#0d0d18] to-transparent" />
       </div>
 
       <div className="p-6 flex flex-col flex-1">
@@ -136,7 +129,7 @@ function ProjectCard({ project, index }) {
             href={project.live}
             target="_blank"
             rel="noreferrer"
-            className={`inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-white px-3 py-1.5 rounded-xl hover:bg-gradient-to-r hover:${project.gradient} transition-all duration-200`}
+            className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-violet-300 px-3 py-1.5 rounded-xl hover:bg-violet-600/10 transition-all duration-200"
           >
             <ExternalLink className="w-4 h-4" />
             Live Demo
@@ -165,7 +158,7 @@ export default function Projects() {
             <span className="gradient-text">Projects</span>
           </h2>
           <p className="text-gray-600 max-w-md mx-auto">
-            A selection of work that demonstrates my range across the full stack.
+            A selection of real-world projects that demonstrate my range across the full stack.
           </p>
         </div>
 

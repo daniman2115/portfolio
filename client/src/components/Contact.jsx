@@ -20,9 +20,9 @@ const contactInfo = [
 ]
 
 const socialLinks = [
-  { href: 'https://github.com', Icon: GitHubIcon, label: 'GitHub' },
-  { href: 'https://linkedin.com', Icon: LinkedInIcon, label: 'LinkedIn' },
-  { href: 'mailto:you@example.com', Icon: Mail, label: 'Email' },
+  { href: 'https://github.com/daniman2115', Icon: GitHubIcon, label: 'GitHub' },
+  { href: 'https://linkedin.com/in/daniel-hailu-4a7bb741a', Icon: LinkedInIcon, label: 'LinkedIn' },
+  { href: 'mailto:danihailhabt321@gmail.com', Icon: Mail, label: 'Email' },
 ]
 
 function InputField({ id, name, type = 'text', label, placeholder, value, onChange, required }) {

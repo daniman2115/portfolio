@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
 import { ArrowRight, Download, Mail, MapPin, Sparkles } from 'lucide-react'
-import profileImage from '/image.png'
 
 const GitHubIcon = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -14,15 +13,8 @@ const LinkedInIcon = ({ className }) => (
   </svg>
 )
 
-const roles = ['Full-Stack Engineer', 'React Developer', 'Node.js Expert', 'Cloud Architect']
+const roles = ['Full-Stack Engineer', 'React Developer', 'Node.js Expert', 'Mobile App Developer' ,'Laravel Developer']
 
-const stats = [
-  { value: '3+', label: 'Years Exp.' },
-  { value: '20+', label: 'Projects' },
-  { value: '10+', label: 'Clients' },
-]
-
-// Animated typing hook
 function useTypingEffect(words, speed = 80, pause = 1800) {
   const [display, setDisplay] = useState('')
   const [wordIdx, setWordIdx] = useState(0)
@@ -56,7 +48,6 @@ function useTypingEffect(words, speed = 80, pause = 1800) {
   return display
 }
 
-// Mouse-follow spotlight
 function useMouseSpotlight(ref) {
   useEffect(() => {
     const el = ref.current
@@ -88,7 +79,6 @@ export default function Hero() {
     >
       {/* Background layers */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        {/* Grid */}
         <div
           className="absolute inset-0 opacity-[0.025]"
           style={{
@@ -97,16 +87,14 @@ export default function Hero() {
             backgroundSize: '50px 50px',
           }}
         />
-        {/* Glow blobs */}
         <div className="glow-pulse absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-violet-700/10 blur-[120px]" />
         <div className="glow-pulse absolute bottom-1/4 right-1/3 w-[400px] h-[400px] rounded-full bg-indigo-700/10 blur-[100px]" style={{ animationDelay: '1.5s' }} />
-        <div className="glow-pulse absolute top-2/3 right-1/4 w-[300px] h-[300px] rounded-full bg-cyan-700/8 blur-[90px]" style={{ animationDelay: '3s' }} />
       </div>
 
       <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center">
-        {/* ── Left ── */}
-        <div className="animate-fade-up">
-          {/* Badge */}
+
+        {/* ── Left — text ── */}
+        <div className="animate-fade-up order-2 lg:order-1">
           <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/25 text-violet-300 text-xs font-medium px-3.5 py-1.5 rounded-full mb-7 shimmer">
             <Sparkles className="w-3.5 h-3.5" />
             Available for new opportunities
@@ -114,10 +102,9 @@ export default function Hero() {
 
           <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-[1.08] tracking-tight mb-4">
             Hi, I'm{' '}
-            <span className="gradient-text">Daniel</span>
+            <span className="gradient-text">Daniel Hailu</span>
           </h1>
 
-          {/* Typing effect */}
           <div className="h-10 flex items-center mb-5">
             <span className="text-xl md:text-2xl font-medium text-gray-300">
               {role}
@@ -130,10 +117,9 @@ export default function Hero() {
             interfaces to resilient back-end systems. Clean code, real results.
           </p>
 
-          {/* Location */}
           <div className="flex items-center gap-1.5 text-gray-600 text-sm mb-8">
             <MapPin className="w-4 h-4 text-violet-500" />
-            <span>San Francisco, CA · Open to remote</span>
+            <span>Addis Ababa, Ethiopia · Open to work</span>
           </div>
 
           {/* CTAs */}
@@ -148,7 +134,7 @@ export default function Hero() {
               <ArrowRight className="relative w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
             </a>
             <a
-              href="/resume.pdf"
+              href="/Daniel_Hailu_Resume (9).pdf"
               className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/8 border border-white/10 hover:border-violet-500/40 text-gray-300 hover:text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5"
             >
               <Download className="w-4 h-4" />
@@ -160,9 +146,9 @@ export default function Hero() {
           <div className="flex items-center gap-2">
             <span className="text-xs text-gray-700 uppercase tracking-widest mr-2">Links</span>
             {[
-              { href: 'https://github.com', Icon: GitHubIcon, label: 'GitHub' },
-              { href: 'https://linkedin.com', Icon: LinkedInIcon, label: 'LinkedIn' },
-              { href: 'mailto:you@example.com', Icon: Mail, label: 'Email' },
+              { href: 'https://github.com/daniman2115', Icon: GitHubIcon, label: 'GitHub' },
+              { href: 'https://linkedin.com/in/daniel-hailu-4a7bb741a', Icon: LinkedInIcon, label: 'LinkedIn' },
+              { href: 'mailto:danihailhabt321@gmail.com', Icon: Mail, label: 'Email' },
             ].map(({ href, Icon, label }) => (
               <a
                 key={label}
@@ -178,58 +164,65 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── Right ── */}
-        <div className="hidden lg:flex flex-col items-center gap-5">
-          {/* Profile card */}
-          <div className="float relative w-full max-w-sm">
-            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-violet-600/30 via-indigo-600/20 to-cyan-600/20 blur-xl" />
-            <div className="relative bg-[#0d0d18] border border-white/10 rounded-3xl p-7 overflow-hidden">
-              {/* Inner shimmer */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
+        {/* ── Right — profile image ── */}
+        <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+          <div className="relative">
 
-              {/* Avatar */}
-                <img src={profileImage} className="relative w-40 h-40 rounded-2xl  flex items-center justify-center text-4xl mb-5 shadow-xl shadow-violet-900/40"/>
+            {/* Outer rotating ring */}
+            <div
+              className="absolute -inset-3 rounded-full opacity-60"
+              style={{
+                background:
+                  'conic-gradient(from 0deg, transparent 60%, rgba(139,92,246,0.6) 80%, rgba(99,102,241,0.8) 100%, transparent)',
+                animation: 'spin 6s linear infinite',
+              }}
+            />
 
-              <h3 className="text-white font-bold text-xl mb-0.5">Daniel Hailu</h3>
-              <p className="text-gray-500 text-sm mb-4">Full-Stack Engineer</p>
+            {/* Second counter-rotating ring */}
+            <div
+              className="absolute -inset-5 rounded-full opacity-30"
+              style={{
+                background:
+                  'conic-gradient(from 180deg, transparent 60%, rgba(99,102,241,0.5) 80%, rgba(139,92,246,0.6) 100%, transparent)',
+                animation: 'spin 9s linear infinite reverse',
+              }}
+            />
 
-              {/* Status */}
-              <div className="flex items-center gap-2 text-emerald-400 text-xs font-medium bg-emerald-400/8 border border-emerald-400/20 px-3 py-1.5 rounded-full w-fit mb-5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Open to work
-              </div>
+            {/* Glow bloom behind image */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-violet-600/40 to-indigo-600/30 blur-2xl scale-110" />
 
-              {/* Tech stack */}
-              <div className="flex flex-wrap gap-2">
-                {['React', 'ReactNative', 'Node.js', 'MongoDB', 'PostgreSQL', 'Docker'].map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-xs bg-white/5 hover:bg-violet-600/15 border border-white/8 hover:border-violet-500/30 text-gray-400 hover:text-violet-300 px-2.5 py-1 rounded-lg transition-all duration-200 cursor-default"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Bottom shimmer line */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+            {/* Image frame */}
+            <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl shadow-violet-900/50 ">
+              <img
+                src="/prof2.jpg"
+                alt="Your Name — Software Engineer"
+                className="w-full h-full object-cover object-top"
+              />
+              {/* Subtle inner vignette */}
+              <div className="absolute inset-0 rounded-full shadow-[inset_0_0_40px_rgba(0,0,0,0.4)]" />
             </div>
-          </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-3 w-full max-w-sm">
-            {stats.map(({ value, label }) => (
-              <div
-                key={label}
-                className="group relative bg-[#0d0d18] border border-white/8 hover:border-violet-500/30 rounded-2xl p-4 text-center overflow-hidden transition-all duration-300 hover:-translate-y-0.5 cursor-default"
-              >
-                <div className="absolute inset-0 bg-gradient-to-b from-violet-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative text-2xl font-extrabold gradient-text">{value}</div>
-                <div className="relative text-xs text-gray-600 mt-0.5">{label}</div>
-              </div>
-            ))}
+            {/* Online badge — bottom right of image */}
+            <div className="absolute bottom-4 right-2 flex items-center gap-1.5 bg-[#0d0d18]/90 backdrop-blur-md border border-white/10 text-xs font-medium text-emerald-400 px-3 py-1.5 rounded-full shadow-lg">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Available
+            </div>
+
+            {/* Experience badge — top left */}
+            <div className="absolute -top-2 -left-4 bg-[#0d0d18]/90 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-2.5 shadow-xl">
+              <p className="text-2xl font-extrabold gradient-text leading-none">3+</p>
+              <p className="text-gray-500 text-xs mt-0.5">Years of exp.</p>
+            </div>
+
+            {/* Projects badge — bottom left */}
+            <div className="absolute -bottom-2 -left-6 bg-[#0d0d18]/90 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-2.5 shadow-xl">
+              <p className="text-2xl font-extrabold gradient-text leading-none">20+</p>
+              <p className="text-gray-500 text-xs mt-0.5">Projects shipped</p>
+            </div>
+
           </div>
         </div>
+
       </div>
 
       {/* Scroll cue */}
