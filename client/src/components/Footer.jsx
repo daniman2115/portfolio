@@ -1,4 +1,6 @@
-import { Mail, Code2, Heart, ArrowUp } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { ArrowUp, Code2, Heart, Smartphone, Globe, Mail } from 'lucide-react'
+import { personalInfo } from '../data/portfolioData'
 
 const GitHubIcon = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -12,51 +14,85 @@ const LinkedInIcon = ({ className }) => (
   </svg>
 )
 
-const navLinks = [
-  { label: 'About', href: '#hero' },
-  { label: 'Skills', href: '#skills' },
+const footerLinks = [
+  { label: 'Overview', href: '#hero' },
+  { label: 'Mobile App', href: '#mobile-spotlight' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Architecture', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Terminal', href: '#terminal' },
   { label: 'Contact', href: '#contact' },
 ]
 
-const socials = [
-  { href: 'https://github.com/daniman2115', Icon: GitHubIcon, label: 'GitHub' },
-  { href: 'https://linkedin.com/in/daniel-hailu-4a7bb741a', Icon: LinkedInIcon, label: 'LinkedIn' },
-  { href: 'mailto:danihailhabt321@gmail.com', Icon: Mail, label: 'Email' },
-]
-
 export default function Footer() {
+  const [localTime, setLocalTime] = useState('')
+
+  useEffect(() => {
+    const updateTime = () => {
+      // Addis Ababa is UTC+3
+      const now = new Date()
+      const options = {
+        timeZone: 'Africa/Addis_Ababa',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      }
+      setLocalTime(new Intl.DateTimeFormat('en-US', options).format(now))
+    }
+
+    updateTime()
+    const interval = setInterval(updateTime, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
-    <footer className="relative bg-[#080810] border-t border-white/5 overflow-hidden">
-      {/* Top glow line */}
+    <footer className="relative bg-[#05050b] border-t border-white/[0.08] text-gray-400 text-xs overflow-hidden">
+      {/* Top ambient glow line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
 
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-3 gap-10 mb-10">
-          {/* Brand */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-600/25">
-                <Code2 className="w-4 h-4 text-white" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid md:grid-cols-12 gap-10 mb-12">
+          
+          {/* Brand Col (5 cols) */}
+          <div className="md:col-span-5 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 p-[1.5px]">
+                <div className="w-full h-full bg-[#080812] rounded-[10px] flex items-center justify-center font-mono font-bold text-xs text-white">
+                  DH
+                </div>
               </div>
-              <span className="font-bold text-white">
-                dev<span className="text-violet-400">.</span>folio
+              <span className="text-white font-bold text-base tracking-tight">
+                Daniel Hailu
               </span>
             </div>
-            <p className="text-gray-700 text-sm leading-relaxed max-w-xs">
-              Building products people love, with code others can understand.
+            
+            <p className="text-gray-400 text-xs leading-relaxed max-w-sm">
+              Full-Stack Web & Mobile App Developer based in Addis Ababa, Ethiopia. Engineering production-grade software with clean architecture and delightful user experiences.
             </p>
+
+            {/* Local time badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.03] border border-white/[0.06] font-mono text-[11px] text-gray-300">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Addis Ababa, ET (UTC+3): {localTime || 'Loading...'}</span>
+            </div>
           </div>
 
-          {/* Nav */}
-          <div>
-            <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Navigation</h4>
-            <ul className="grid grid-cols-2 gap-y-2">
-              {navLinks.map((link) => (
+          {/* Navigation Links (3 cols) */}
+          <div className="md:col-span-3">
+            <h4 className="text-white font-mono text-xs uppercase tracking-wider mb-4 font-semibold">
+              Navigation
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-gray-600 hover:text-violet-400 text-sm transition-colors duration-200"
+                    className="hover:text-cyan-400 transition-colors"
                   >
                     {link.label}
                   </a>
@@ -65,43 +101,60 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Social + back to top */}
-          <div className="flex flex-col gap-4">
+          {/* Socials & Back to Top (4 cols) */}
+          <div className="md:col-span-4 flex flex-col justify-between">
             <div>
-              <h4 className="text-white text-xs font-semibold tracking-widest uppercase mb-4">Connect</h4>
-              <div className="flex gap-2">
-                {socials.map(({ href, Icon, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith('http') ? '_blank' : undefined}
-                    rel="noreferrer"
-                    aria-label={label}
-                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-violet-600/20 border border-white/8 hover:border-violet-500/40 text-gray-500 hover:text-violet-300 transition-all duration-200 hover:-translate-y-0.5"
-                  >
-                    <Icon className="w-4 h-4" />
-                  </a>
-                ))}
+              <h4 className="text-white font-mono text-xs uppercase tracking-wider mb-4 font-semibold">
+                Connect
+              </h4>
+              <div className="flex gap-2 mb-6">
+                <a
+                  href={personalInfo.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="GitHub"
+                  className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-violet-600/20 border border-white/[0.08] hover:border-violet-500/40 flex items-center justify-center text-gray-300 hover:text-white transition-all"
+                >
+                  <GitHubIcon className="w-4 h-4" />
+                </a>
+                <a
+                  href={personalInfo.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                  className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-blue-600/20 border border-white/[0.08] hover:border-blue-500/40 flex items-center justify-center text-gray-300 hover:text-white transition-all"
+                >
+                  <LinkedInIcon className="w-4 h-4" />
+                </a>
+                <a
+                  href={`mailto:${personalInfo.email}`}
+                  aria-label="Email"
+                  className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-emerald-600/20 border border-white/[0.08] hover:border-emerald-500/40 flex items-center justify-center text-gray-300 hover:text-white transition-all"
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
               </div>
             </div>
-            <a
-              href="#hero"
-              className="self-start inline-flex items-center gap-2 text-xs text-gray-700 hover:text-violet-400 border border-white/8 hover:border-violet-500/30 px-4 py-2 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+
+            <button
+              onClick={scrollToTop}
+              className="self-start inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-gray-300 hover:text-white transition-all"
             >
-              <ArrowUp className="w-3.5 h-3.5" />
-              Back to top
-            </a>
+              <ArrowUp className="w-3.5 h-3.5 text-violet-400" />
+              <span>Back to Top</span>
+            </button>
           </div>
+
         </div>
 
-        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-gray-800 text-xs">
-            © {new Date().getFullYear()} Your Name. All rights reserved.
-          </p>
-          <p className="text-gray-800 text-xs flex items-center gap-1">
-            Crafted with <Heart className="w-3 h-3 text-pink-600/60" fill="currentColor" /> using React & Tailwind CSS
+        {/* Bottom copyright line */}
+        <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-gray-500 text-[11px]">
+          <p>© {new Date().getFullYear()} Daniel Hailu. All rights reserved.</p>
+          <p className="flex items-center gap-1.5">
+            <span>Built with React 19, Tailwind CSS v4, Node.js & React Native</span>
           </p>
         </div>
+
       </div>
     </footer>
   )

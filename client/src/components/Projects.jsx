@@ -1,9 +1,17 @@
 import { useState } from 'react'
-import { ExternalLink, ArrowRight, Star, GitFork } from 'lucide-react'
-
-import chatBot from '/chatbot.png'
-import movieApp from '/movie-app.png'
-import AIMDS from '/AIMDS.png'
+import {
+  ExternalLink,
+  ArrowRight,
+  Sparkles,
+  Smartphone,
+  Globe,
+  Radio,
+  Server,
+  Layers,
+  Code2,
+  CheckCircle2,
+} from 'lucide-react'
+import { projects } from '../data/portfolioData'
 
 const GitHubIcon = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -11,176 +19,187 @@ const GitHubIcon = ({ className }) => (
   </svg>
 )
 
-const projects = [
-  {
-    title: 'Movie App',
-    description:
-      'A responsive movie discovery platform that lets users search, browse, and save their favourite films. Integrates the TMDb API for real-time data including ratings, trailers, cast info, and personalized watchlists stored in local state.',
-    tags: ['React Native(Expo)', 'TMDb API', 'Tailwind CSS', 'Context API'],
-    github: 'https://github.com/daniman2115/react-native-movie-app',
-    live: 'https://example.com',
-    // stars: 42,
-    // forks: 12,
-    glow: 'group-hover:shadow-blue-500/20',
-    badge: 'Front-End',
-    image: movieApp,
-  },
-  {
-    title: 'Real-Time Chat App',
-    description:
-      'A full-stack messaging application featuring presence indicators, typing status, and persistent message history. Built for horizontal scalability across multiple server instances.',
-    tags: ['React', 'Socket.io', 'Google API'],
-    github: 'https://github.com/daniman2115/chatbot-with-react-css',
-    live: 'https://chatbot-with-react-css.onrender.com',
-    // stars: 94,
-    // forks: 21,
-    glow: 'group-hover:shadow-violet-500/20',
-    badge: 'Full-Stack',
-    image: chatBot,
-  },
-  {
-    title: 'Agricultural Inputs Management and Distribution System',
-    description:
-      'An end-to-end platform for managing the procurement, storage, and distribution of agricultural inputs such as seeds, fertilizers, and pesticides. Includes supplier management, stock tracking, order workflows, and reporting dashboards for farm cooperatives.',
-    tags: ['React', 'Node.js', 'MongoDB', 'Express', 'REST API', "Socket.io", "Tailwind CSS", "Material UI"],
-    github: 'https://github.com',
-    live: 'https://agri-demo.onrender.com/',
-    // stars: 31,
-    // forks: 9,
-    glow: 'group-hover:shadow-emerald-500/20',
-    badge: 'Full-Stack',
-    image: AIMDS,
-  },
+const filterCategories = [
+  { id: 'All', label: 'All Projects', count: 4 },
+  { id: 'Mobile', label: 'Mobile Apps', count: 1 },
+  { id: 'Full-Stack', label: 'Full-Stack Web', count: 1 },
+  { id: 'Real-Time', label: 'Real-Time & APIs', count: 2 },
 ]
 
-function ProjectCard({ project, index }) {
-  const [hovered, setHovered] = useState(false)
+export default function Projects() {
+  const [selectedFilter, setSelectedFilter] = useState('All')
+
+  const filteredProjects =
+    selectedFilter === 'All'
+      ? projects
+      : selectedFilter === 'Real-Time'
+      ? projects.filter((p) => p.category === 'Real-Time' || p.category === 'Backend')
+      : projects.filter((p) => p.category === selectedFilter)
 
   return (
-    <article
-      className={`group relative bg-[#0d0d18] border border-white/8 hover:border-white/15 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${project.glow} flex flex-col`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{ animationDelay: `${index * 120}ms` }}
-    >
-      {/* Project image */}
-      <div className="relative h-48 overflow-hidden bg-[#0a0a14]">
-        <img
-          src={project.image}
-          alt={project.title}
-          className={`w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-110' : 'scale-100'}`}
-        />
-        {/* Dark overlay that lightens on hover */}
-        <div
-          className={`absolute inset-0 bg-black transition-opacity duration-500 ${hovered ? 'opacity-20' : 'opacity-40'}`}
-        />
-        {/* Badge */}
-        <span className="absolute top-3 right-3 text-xs font-medium text-white/90 bg-black/50 backdrop-blur-md border border-white/15 px-2.5 py-1 rounded-full">
-          {project.badge}
-        </span>
-        {/* Bottom fade into card */}
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#0d0d18] to-transparent" />
-      </div>
+    <section id="projects" className="py-28 px-4 sm:px-6 lg:px-8 relative bg-[#06060c] overflow-hidden">
+      {/* Background ambient light */}
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="p-6 flex flex-col flex-1">
-        {/* Title + stats */}
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <h3 className="text-white font-bold text-lg leading-snug">{project.title}</h3>
-          <div className="flex items-center gap-3 text-gray-600 text-xs flex-shrink-0 pt-0.5">
-            <span className="flex items-center gap-1 hover:text-yellow-400 transition-colors duration-200 cursor-default">
-              <Star className="w-3.5 h-3.5" />
-              {project.stars}
-            </span>
-            <span className="flex items-center gap-1 hover:text-blue-400 transition-colors duration-200 cursor-default">
-              <GitFork className="w-3.5 h-3.5" />
-              {project.forks}
-            </span>
+      <div className="max-w-7xl mx-auto relative z-10">
+        
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/25 text-violet-300 text-xs font-mono font-medium mb-3">
+              <Code2 className="w-3.5 h-3.5 text-violet-400" />
+              <span>Production Portfolio</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-3">
+              Featured <span className="gradient-text">Engineering Works</span>
+            </h2>
+            <p className="text-gray-400 text-sm sm:text-base max-w-xl">
+              Real-world systems, cross-platform mobile apps, and scalable web applications engineered with production standards.
+            </p>
+          </div>
+
+          {/* Filter Pills */}
+          <div className="flex flex-wrap gap-2 p-1.5 bg-[#0e0e1a] border border-white/[0.08] rounded-2xl">
+            {filterCategories.map((tab) => {
+              const active = selectedFilter === tab.id
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedFilter(tab.id)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 flex items-center gap-1.5 ${
+                    active
+                      ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-600/20'
+                      : 'text-gray-400 hover:text-white hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <span>{tab.label}</span>
+                </button>
+              )
+            })}
           </div>
         </div>
 
-        <p className="text-gray-500 text-sm leading-relaxed flex-1 mb-5">
-          {project.description}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs text-gray-500 hover:text-gray-300 bg-white/4 hover:bg-white/8 border border-white/6 px-2.5 py-0.5 rounded-lg transition-all duration-200 cursor-default"
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {filteredProjects.map((project) => (
+            <article
+              key={project.id}
+              className="group relative bg-[#0c0c18] border border-white/[0.08] hover:border-violet-500/40 rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-violet-900/20 flex flex-col"
             >
-              {tag}
-            </span>
+              {/* Window Frame Header */}
+              <div className="px-5 py-3 bg-[#0a0a14] border-b border-white/[0.06] flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                  <span className="ml-2 text-[11px] font-mono text-gray-500 truncate">
+                    {project.title.toLowerCase().replace(/\s+/g, '-')}.app
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08] text-cyan-300">
+                  {project.stats}
+                </span>
+              </div>
+
+              {/* Preview Media */}
+              <div className="relative h-60 sm:h-64 overflow-hidden bg-[#070710]">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                />
+
+                {/* Ambient dark gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c18] via-transparent to-transparent opacity-90" />
+
+                {/* Badge Overlay */}
+                <div className="absolute top-4 left-4">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#0b0b14]/90 backdrop-blur-md border border-white/[0.12] text-white">
+                    {project.isMobile ? (
+                      <Smartphone className="w-3 h-3 text-cyan-400" />
+                    ) : (
+                      <Globe className="w-3 h-3 text-violet-400" />
+                    )}
+                    {project.badge}
+                  </span>
+                </div>
+              </div>
+
+              {/* Card Body */}
+              <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-2.5 group-hover:text-violet-300 transition-colors">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                    {project.description}
+                  </p>
+
+                  {/* Tech Stack Pills */}
+                  <div className="flex flex-wrap gap-1.5 mb-6">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.06] text-gray-300 hover:border-violet-500/30 transition-colors"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Card Footer Links */}
+                <div className="pt-5 border-t border-white/[0.06] flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-300 hover:text-white px-3 py-1.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] transition-all"
+                      >
+                        <GitHubIcon className="w-3.5 h-3.5" />
+                        <span>Source Code</span>
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-300 hover:text-cyan-200 px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 transition-all"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Live Demo</span>
+                      </a>
+                    )}
+                  </div>
+
+                  <span className="text-[11px] font-mono text-gray-500">
+                    Production Grade
+                  </span>
+                </div>
+              </div>
+            </article>
           ))}
         </div>
 
-        {/* Links */}
-        <div className="flex items-center gap-1 pt-4 border-t border-white/5">
+        {/* GitHub Archive Callout */}
+        <div className="mt-14 text-center">
           <a
-            href={project.github}
+            href="https://github.com/daniman2115"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-white px-3 py-1.5 rounded-xl hover:bg-white/6 transition-all duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/[0.04] hover:bg-violet-600/15 border border-white/[0.08] hover:border-violet-500/40 text-gray-300 hover:text-white text-xs font-mono transition-all duration-300"
           >
-            <GitHubIcon className="w-4 h-4" />
-            Code
-          </a>
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-violet-300 px-3 py-1.5 rounded-xl hover:bg-violet-600/10 transition-all duration-200"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Live Demo
+            <GitHubIcon className="w-4 h-4 text-violet-400" />
+            <span>Explore all 20+ repositories on GitHub (@daniman2115)</span>
+            <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
           </a>
         </div>
-      </div>
-    </article>
-  )
-}
 
-export default function Projects() {
-  return (
-    <section id="projects" className="py-28 px-6 relative bg-[#080810]">
-      {/* Divider lines */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
-
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-violet-400 font-mono text-xs tracking-[0.2em] uppercase mb-3">
-            What I've built
-          </p>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Featured{' '}
-            <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="text-gray-600 max-w-md mx-auto">
-            A selection of real-world projects that demonstrate my range across the full stack.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-12">
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white border border-white/10 hover:border-violet-500/40 bg-white/3 hover:bg-violet-600/10 px-6 py-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5"
-          >
-            <GitHubIcon className="w-4 h-4" />
-            View all on GitHub
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-          </a>
-        </div>
       </div>
     </section>
   )

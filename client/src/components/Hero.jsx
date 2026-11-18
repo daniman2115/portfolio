@@ -1,5 +1,18 @@
-import { useEffect, useState, useRef } from 'react'
-import { ArrowRight, Download, Mail, MapPin, Sparkles } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import {
+  ArrowRight,
+  Download,
+  Mail,
+  MapPin,
+  Sparkles,
+  Smartphone,
+  Globe,
+  Terminal,
+  ShieldCheck,
+  CheckCircle2,
+  ExternalLink,
+} from 'lucide-react'
+import { personalInfo, metrics } from '../data/portfolioData'
 
 const GitHubIcon = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -13,211 +26,236 @@ const LinkedInIcon = ({ className }) => (
   </svg>
 )
 
-const roles = ['Full-Stack Engineer', 'React Developer', 'Node.js Expert', 'Mobile App Developer' ,'Laravel Developer']
-
-function useTypingEffect(words, speed = 80, pause = 1800) {
+function useTypingEffect(words, speed = 70, pause = 2000) {
   const [display, setDisplay] = useState('')
   const [wordIdx, setWordIdx] = useState(0)
   const [charIdx, setCharIdx] = useState(0)
   const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
-    const current = words[wordIdx]
-    const timeout = setTimeout(() => {
-      if (!deleting) {
-        setDisplay(current.slice(0, charIdx + 1))
-        if (charIdx + 1 === current.length) {
-          setTimeout(() => setDeleting(true), pause)
+    const currentWord = words[wordIdx]
+    const timeout = setTimeout(
+      () => {
+        if (!deleting) {
+          setDisplay(currentWord.slice(0, charIdx + 1))
+          if (charIdx + 1 === currentWord.length) {
+            setTimeout(() => setDeleting(true), pause)
+          } else {
+            setCharIdx((c) => c + 1)
+          }
         } else {
-          setCharIdx((c) => c + 1)
+          setDisplay(currentWord.slice(0, charIdx - 1))
+          if (charIdx - 1 <= 0) {
+            setDeleting(false)
+            setWordIdx((w) => (w + 1) % words.length)
+            setCharIdx(0)
+          } else {
+            setCharIdx((c) => c - 1)
+          }
         }
-      } else {
-        setDisplay(current.slice(0, charIdx - 1))
-        if (charIdx - 1 === 0) {
-          setDeleting(false)
-          setWordIdx((w) => (w + 1) % words.length)
-          setCharIdx(0)
-        } else {
-          setCharIdx((c) => c - 1)
-        }
-      }
-    }, deleting ? speed / 2 : speed)
+      },
+      deleting ? speed / 2 : speed
+    )
     return () => clearTimeout(timeout)
   }, [charIdx, deleting, wordIdx, words, speed, pause])
 
   return display
 }
 
-function useMouseSpotlight(ref) {
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const move = (e) => {
-      const rect = el.getBoundingClientRect()
-      el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
-      el.style.setProperty('--my', `${e.clientY - rect.top}px`)
-    }
-    el.addEventListener('mousemove', move)
-    return () => el.removeEventListener('mousemove', move)
-  }, [ref])
-}
-
 export default function Hero() {
-  const role = useTypingEffect(roles)
-  const sectionRef = useRef(null)
-  useMouseSpotlight(sectionRef)
+  const currentRole = useTypingEffect(personalInfo.roles)
+  const containerRef = useRef(null)
+
+  const handleMouseMove = (e) => {
+    const el = containerRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
+    el.style.setProperty('--my', `${e.clientY - rect.top}px`)
+  }
 
   return (
     <section
       id="hero"
-      ref={sectionRef}
-      className="relative min-h-screen flex items-center px-6 pt-24 pb-16 overflow-hidden bg-[#05050a]"
-      style={{
-        background:
-          'radial-gradient(circle 800px at var(--mx, 50%) var(--my, 40%), rgba(109,40,217,0.06) 0%, transparent 70%), #05050a',
-      }}
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen flex flex-col justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-radial-gradient bg-grid-cyber"
     >
-      {/* Background layers */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(139,92,246,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.5) 1px, transparent 1px)',
-            backgroundSize: '50px 50px',
-          }}
-        />
-        <div className="glow-pulse absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-violet-700/10 blur-[120px]" />
-        <div className="glow-pulse absolute bottom-1/4 right-1/3 w-[400px] h-[400px] rounded-full bg-indigo-700/10 blur-[100px]" style={{ animationDelay: '1.5s' }} />
-      </div>
+      {/* Ambient background glows */}
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-violet-600/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/3 -right-32 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-2/3 left-1/3 w-80 h-80 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center">
-
-        {/* ── Left — text ── */}
-        <div className="animate-fade-up order-2 lg:order-1">
-          <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/25 text-violet-300 text-xs font-medium px-3.5 py-1.5 rounded-full mb-7 shimmer">
-            <Sparkles className="w-3.5 h-3.5" />
-            Available for new opportunities
+      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+        
+        {/* Left Column — 7 cols */}
+        <div className="lg:col-span-7 flex flex-col items-start text-left">
+          
+          {/* Status pill badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/25 text-violet-300 text-xs font-medium mb-6 backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Available for Full-Stack & Mobile Roles (2026)</span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-[1.08] tracking-tight mb-4">
-            Hi, I'm{' '}
-            <span className="gradient-text">Daniel Hailu</span>
+          {/* Headline */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1] mb-4">
+            Hi, I'm <span className="gradient-text">Daniel Hailu</span>
           </h1>
 
-          <div className="h-10 flex items-center mb-5">
-            <span className="text-xl md:text-2xl font-medium text-gray-300">
-              {role}
-              <span className="cursor text-violet-400 ml-0.5">|</span>
+          {/* Dynamic typing role switcher */}
+          <div className="h-12 sm:h-14 flex items-center mb-5">
+            <span className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-200">
+              {currentRole}
+              <span className="text-cyan-400 animate-blink ml-1">_</span>
             </span>
           </div>
 
-          <p className="text-gray-500 text-lg leading-relaxed mb-7 max-w-lg">
-            I craft performant, scalable web applications — from polished
-            interfaces to resilient back-end systems. Clean code, real results.
+          {/* Bio paragraph */}
+          <p className="text-gray-400 text-base sm:text-lg leading-relaxed max-w-2xl mb-6">
+            I architect and build robust end-to-end applications: from fluid, 
+            <span className="text-white font-medium"> 60 FPS React Native mobile apps</span> to resilient 
+            <span className="text-white font-medium"> distributed web systems</span> powered by React, Node.js, Express, Laravel, and SQL/NoSQL databases. Clean architecture, high performance, and rapid delivery.
           </p>
 
-          <div className="flex items-center gap-1.5 text-gray-600 text-sm mb-8">
-            <MapPin className="w-4 h-4 text-violet-500" />
-            <span>Addis Ababa, Ethiopia · Open to work</span>
+          {/* Location & Status info */}
+          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-gray-400 mb-8 pb-4 border-b border-white/[0.08] w-full">
+            <div className="flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-violet-400" />
+              <span>Addis Ababa, Ethiopia · Remote & Relocation</span>
+            </div>
+            <div className="hidden sm:inline-block text-gray-600">|</div>
+            <div className="flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+              <span>3+ Years Experience · 20+ Shipped Projects</span>
+            </div>
           </div>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-3 mb-10">
+          {/* Action CTAs */}
+          <div className="flex flex-wrap items-center gap-3.5 mb-10">
             <a
-              href="#projects"
-              className="group inline-flex items-center gap-2 relative overflow-hidden text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5"
+              href="#mobile-spotlight"
+              className="group relative inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white overflow-hidden shadow-xl shadow-violet-600/25 transition-all duration-300 hover:-translate-y-0.5"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-violet-600 to-indigo-600 group-hover:from-violet-500 group-hover:to-indigo-500 transition-all duration-300" />
-              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.15),transparent_60%)] transition-opacity duration-300" />
-              <span className="relative">View My Work</span>
-              <ArrowRight className="relative w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              <span className="absolute inset-0 bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-600 group-hover:from-violet-500 group-hover:to-cyan-500 transition-all duration-300" />
+              <span className="relative flex items-center gap-2">
+                <Smartphone className="w-4 h-4 text-cyan-200" />
+                <span>Explore Mobile & Web Apps</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </span>
             </a>
+
             <a
-              href="/Daniel_Hailu_Resume (9).pdf"
-              className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/8 border border-white/10 hover:border-violet-500/40 text-gray-300 hover:text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5"
+              href={personalInfo.resumePath}
+              download
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm text-gray-200 bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] hover:border-violet-500/40 transition-all duration-300 hover:-translate-y-0.5"
             >
-              <Download className="w-4 h-4" />
-              Resume
+              <Download className="w-4 h-4 text-violet-400" />
+              <span>Download CV</span>
+            </a>
+
+            <a
+              href="#terminal"
+              className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl font-mono text-xs text-gray-300 bg-[#0d0d18] border border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Interactive CLI</span>
             </a>
           </div>
 
-          {/* Socials */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-700 uppercase tracking-widest mr-2">Links</span>
-            {[
-              { href: 'https://github.com/daniman2115', Icon: GitHubIcon, label: 'GitHub' },
-              { href: 'https://linkedin.com/in/daniel-hailu-4a7bb741a', Icon: LinkedInIcon, label: 'LinkedIn' },
-              { href: 'mailto:danihailhabt321@gmail.com', Icon: Mail, label: 'Email' },
-            ].map(({ href, Icon, label }) => (
+          {/* Social connections */}
+          <div className="flex items-center gap-3">
+            <span className="text-xs uppercase tracking-wider text-gray-500 font-mono">Connect:</span>
+            <div className="flex items-center gap-2">
               <a
-                key={label}
-                href={href}
-                target={href.startsWith('http') ? '_blank' : undefined}
+                href={personalInfo.github}
+                target="_blank"
                 rel="noreferrer"
-                aria-label={label}
-                className="group w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-violet-600/20 border border-white/8 hover:border-violet-500/50 text-gray-500 hover:text-violet-300 transition-all duration-200 hover:-translate-y-0.5"
+                aria-label="GitHub Profile"
+                className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/[0.05] hover:bg-violet-600/20 border border-white/[0.08] hover:border-violet-500/50 text-gray-400 hover:text-white transition-all duration-200"
               >
-                <Icon className="w-4 h-4" />
+                <GitHubIcon className="w-4 h-4" />
               </a>
-            ))}
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn Profile"
+                className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/[0.05] hover:bg-blue-600/20 border border-white/[0.08] hover:border-blue-500/50 text-gray-400 hover:text-white transition-all duration-200"
+              >
+                <LinkedInIcon className="w-4 h-4" />
+              </a>
+              <a
+                href={`mailto:${personalInfo.email}`}
+                aria-label="Send direct email"
+                className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/[0.05] hover:bg-emerald-600/20 border border-white/[0.08] hover:border-emerald-500/50 text-gray-400 hover:text-white transition-all duration-200"
+              >
+                <Mail className="w-4 h-4" />
+              </a>
+            </div>
           </div>
+
         </div>
 
-        {/* ── Right — profile image ── */}
-        <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-          <div className="relative">
+        {/* Right Column — 5 cols (Portrait + Telemetry Badges) */}
+        <div className="lg:col-span-5 flex justify-center lg:justify-end relative">
+          <div className="relative w-72 sm:w-84 md:w-96">
+            
+            {/* Ambient halo effect */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/30 via-indigo-600/20 to-cyan-500/30 rounded-3xl blur-3xl scale-95 animate-glow-pulse" />
 
-            {/* Outer rotating ring */}
-            <div
-              className="absolute -inset-3 rounded-full opacity-60"
-              style={{
-                background:
-                  'conic-gradient(from 0deg, transparent 60%, rgba(139,92,246,0.6) 80%, rgba(99,102,241,0.8) 100%, transparent)',
-                animation: 'spin 6s linear infinite',
-              }}
-            />
+            {/* Profile image card */}
+            <div className="relative rounded-3xl p-1 bg-gradient-to-b from-white/15 via-white/5 to-transparent shadow-2xl backdrop-blur-xl">
+              <div className="relative rounded-[22px] overflow-hidden bg-[#0d0d18] border border-white/[0.08] aspect-[4/5]">
+                <img
+                  src={personalInfo.profileImage}
+                  alt={personalInfo.name}
+                  className="w-full h-full object-cover object-top filter contrast-[1.03] hover:scale-105 transition-transform duration-700"
+                />
+                
+                {/* Subtle vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#06060c] via-transparent to-transparent opacity-80" />
 
-            {/* Second counter-rotating ring */}
-            <div
-              className="absolute -inset-5 rounded-full opacity-30"
-              style={{
-                background:
-                  'conic-gradient(from 180deg, transparent 60%, rgba(99,102,241,0.5) 80%, rgba(139,92,246,0.6) 100%, transparent)',
-                animation: 'spin 9s linear infinite reverse',
-              }}
-            />
-
-            {/* Glow bloom behind image */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-violet-600/40 to-indigo-600/30 blur-2xl scale-110" />
-
-            {/* Image frame */}
-            <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl shadow-violet-900/50 ">
-              <img
-                src="/prof2.jpg"
-                alt="Your Name — Software Engineer"
-                className="w-full h-full object-cover object-top"
-              />
-              {/* Subtle inner vignette */}
-              <div className="absolute inset-0 rounded-full shadow-[inset_0_0_40px_rgba(0,0,0,0.4)]" />
+                {/* Bottom title overlay */}
+                <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-[#0b0b14]/85 backdrop-blur-md border border-white/[0.08]">
+                  <p className="text-xs font-mono text-cyan-400 font-semibold uppercase tracking-wider">
+                    Daniel Hailu
+                  </p>
+                  <p className="text-[11px] text-gray-300">
+                    Full-Stack Engineer & Mobile Architect
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* Online badge — bottom right of image */}
-            <div className="absolute bottom-4 right-2 flex items-center gap-1.5 bg-[#0d0d18]/90 backdrop-blur-md border border-white/10 text-xs font-medium text-emerald-400 px-3 py-1.5 rounded-full shadow-lg">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Available
+            {/* Telemetry Badge 1: React Native (Top Left) */}
+            <div className="absolute -top-4 -left-6 sm:-left-10 bg-[#0c0c1a]/90 backdrop-blur-md border border-cyan-500/30 rounded-2xl p-3 shadow-xl flex items-center gap-3 animate-float">
+              <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                <Smartphone className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-white">React Native & Expo</p>
+                <p className="text-[10px] text-gray-400 font-mono">60 FPS Native Touch</p>
+              </div>
             </div>
 
-            {/* Experience badge — top left */}
-            <div className="absolute -top-2 -left-4 bg-[#0d0d18]/90 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-2.5 shadow-xl">
-              <p className="text-2xl font-extrabold gradient-text leading-none">3+</p>
-              <p className="text-gray-500 text-xs mt-0.5">Years of exp.</p>
+            {/* Telemetry Badge 2: Full Stack Node/Laravel (Bottom Left) */}
+            <div className="absolute -bottom-4 -left-6 sm:-left-8 bg-[#0c0c1a]/90 backdrop-blur-md border border-violet-500/30 rounded-2xl p-3 shadow-xl flex items-center gap-3 animate-float-slow">
+              <div className="w-9 h-9 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
+                <Globe className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-white">Full-Stack Web</p>
+                <p className="text-[10px] text-gray-400 font-mono">React · Node · Laravel · DBs</p>
+              </div>
             </div>
 
-            {/* Projects badge — bottom left */}
-            <div className="absolute -bottom-2 -left-6 bg-[#0d0d18]/90 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-2.5 shadow-xl">
-              <p className="text-2xl font-extrabold gradient-text leading-none">20+</p>
-              <p className="text-gray-500 text-xs mt-0.5">Projects shipped</p>
+            {/* Telemetry Badge 3: Shipped Projects (Right Top) */}
+            <div className="absolute top-1/2 -right-4 sm:-right-8 -translate-y-1/2 bg-[#0c0c1a]/90 backdrop-blur-md border border-emerald-500/30 rounded-2xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5 animate-float">
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+              <div>
+                <p className="text-base font-extrabold gradient-text leading-none">20+</p>
+                <p className="text-[10px] text-gray-400 font-mono">Shipped Builds</p>
+              </div>
             </div>
 
           </div>
@@ -225,10 +263,17 @@ export default function Hero() {
 
       </div>
 
-      {/* Scroll cue */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-700">
-        <span className="text-[10px] tracking-[0.2em] uppercase">scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-violet-600/50 to-transparent" />
+      {/* Metrics Counter Strip */}
+      <div className="max-w-7xl mx-auto w-full mt-16 pt-8 border-t border-white/[0.08] grid grid-cols-2 md:grid-cols-4 gap-6">
+        {metrics.map((item) => (
+          <div key={item.label} className="flex flex-col">
+            <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight gradient-text">
+              {item.value}
+            </span>
+            <span className="text-xs font-semibold text-gray-300 mt-1">{item.label}</span>
+            <span className="text-[11px] text-gray-500 font-mono">{item.detail}</span>
+          </div>
+        ))}
       </div>
     </section>
   )

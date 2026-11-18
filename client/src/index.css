@@ -1,29 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, monospace;
 }
 
 * {
   scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
-/* Custom scrollbar */
+html, body {
+  background-color: #06060c;
+  color: #f3f4f6;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-x: hidden;
+}
+
+/* Custom premium scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #05050a;
+  background: #06060c;
 }
 ::-webkit-scrollbar-thumb {
-  background: #4f46e5;
-  border-radius: 99px;
+  background: #312e81;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #6366f1;
+  background: #4f46e5;
 }
 
-/* Gradient text utility */
+/* Glowing text & gradient highlights */
 .gradient-text {
   background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #34d399 100%);
   -webkit-background-clip: text;
@@ -31,103 +40,125 @@
   background-clip: text;
 }
 
-/* Animated gradient border */
-@keyframes border-spin {
-  to {
-    --border-angle: 360deg;
+.gradient-text-cyan {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-amber {
+  background: linear-gradient(135deg, #fbbf24 0%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Background grid patterns */
+.bg-grid-cyber {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.bg-radial-gradient {
+  background: radial-gradient(circle 800px at var(--mx, 50%) var(--my, 40%), rgba(99, 102, 241, 0.08) 0%, transparent 70%), #06060c;
+}
+
+/* Glass cards with ambient borders */
+.glass-panel {
+  background: rgba(13, 13, 24, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel:hover {
+  border-color: rgba(167, 139, 250, 0.25);
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
   }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-active {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
 }
 
 /* Glow pulse */
 @keyframes glow-pulse {
-  0%,
-  100% {
-    opacity: 0.4;
+  0%, 100% {
+    opacity: 0.35;
     transform: scale(1);
   }
   50% {
     opacity: 0.7;
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 }
-.glow-pulse {
-  animation: glow-pulse 3s ease-in-out infinite;
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
 }
 
 /* Float animation */
 @keyframes float {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-12px);
-  }
-}
-.float {
-  animation: float 4s ease-in-out infinite;
-}
-
-/* Shimmer effect */
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.08) 50%,
-    transparent 100%
-  );
-  background-size: 200% auto;
-  animation: shimmer 2.5s linear infinite;
-}
-
-/* Fade up on scroll */
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.animate-fade-up {
-  animation: fade-up 0.6s ease forwards;
-}
-
-/* Spin for profile ring */
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+    transform: translateY(-8px);
   }
 }
 
-/* Typing cursor */
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 7s ease-in-out infinite;
+}
+
+/* Mobile phone mockup shadow & frame */
+.phone-shadow {
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9),
+              0 0 40px -10px rgba(99, 102, 241, 0.3),
+              inset 0 0 2px 1px rgba(255, 255, 255, 0.15);
+}
+
+.phone-bezel {
+  border: 10px solid #1a1a2e;
+  border-radius: 44px;
+}
+
+/* Terminal scrollbar */
+.terminal-body::-webkit-scrollbar {
+  width: 4px;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 4px;
+}
+
+/* Blinking cursor */
 @keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-.cursor {
-  animation: blink 1s step-end infinite;
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-/* Card tilt — handled in JS but ensure no overflow */
-.tilt-card {
-  transform-style: preserve-3d;
+.animate-blink {
+  animation: blink 1s step-end infinite;
 }
