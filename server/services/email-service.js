@@ -38,7 +38,7 @@ export const submitContactForm = async (req, res) => {
 
 
     await sendEmail(
-      process.env.EMAIL_FROM,  // ✅ your verified sender
+      email,  // ✅ your verified sender
       process.env.TO_EMAIL,    // ✅ system inbox
       `📧 New Contact: ${subject} - ${name}`,
       html,

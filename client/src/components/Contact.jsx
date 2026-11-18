@@ -69,7 +69,10 @@ export default function Contact() {
         }),
       })
 
-      const result = await response.json().catch(() => ({}))
+
+      const result = await response.json()
+      console.log({result});
+      // const result = await response.json().catch(() => ({}))
 
       if (response.ok) {
         setSubmitted(true)
