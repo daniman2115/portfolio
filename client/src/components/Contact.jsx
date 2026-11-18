@@ -35,7 +35,6 @@ export default function Contact() {
     name: '',
     email: '',
     subject: '',
-    projectType: 'Full-Stack Web App',
     message: '',
   })
   const [loading, setLoading] = useState(false)
@@ -59,18 +58,13 @@ export default function Contact() {
     setFeedback(null)
 
     try {
-      const combinedSubject = form.subject
-        ? `${form.projectType}: ${form.subject}`
-        : form.projectType
-      const safeSubject = combinedSubject.slice(0, 48)
-
       const response = await fetch(`${APIBASE}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: form.name.trim(),
           email: form.email.trim(),
-          subject: safeSubject,
+          subject: form.subject.trim().slice(0, 48),
           message: form.message.trim(),
         }),
       })
@@ -80,7 +74,7 @@ export default function Contact() {
       if (response.ok) {
         setSubmitted(true)
         setFeedback({ type: 'success', text: 'Message delivered! Daniel will get back to you shortly.' })
-        setForm({ name: '', email: '', subject: '', projectType: 'Full-Stack Web App', message: '' })
+        setForm({ name: '', email: '', subject: '', message: '' })
       } else {
         // Still give user a clean fallback
         setSubmitted(true)
@@ -303,39 +297,19 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-mono text-gray-400 mb-1.5">
-                        Project / Focus Type
-                      </label>
-                      <select
-                        name="projectType"
-                        value={form.projectType}
-                        onChange={handleChange}
-                        className="w-full bg-[#101020] border border-white/[0.08] focus:border-violet-500/60 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none transition-all"
-                      >
-                        <option value="Full-Stack Web App">Full-Stack Web App</option>
-                        <option value="React Native Mobile App">React Native Mobile App</option>
-                        <option value="Backend API / Microservice">Backend API / Microservice</option>
-                        <option value="Full-Time Engineering Role">Full-Time Engineering Role</option>
-                        <option value="Other Collaboration">Other Collaboration</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-mono text-gray-400 mb-1.5">
-                        Subject *
-                      </label>
-                      <input
-                        type="text"
-                        name="subject"
-                        required
-                        value={form.subject}
-                        onChange={handleChange}
-                        placeholder="Mobile App Project / Developer Opportunity"
-                        className="w-full bg-white/[0.03] border border-white/[0.08] focus:border-violet-500/60 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none transition-all"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-xs font-mono text-gray-400 mb-1.5">
+                      Subject *
+                    </label>
+                    <input
+                      type="text"
+                      name="subject"
+                      required
+                      value={form.subject}
+                      onChange={handleChange}
+                      placeholder="Project inquiry / Full-stack or Mobile Developer opportunity..."
+                      className="w-full bg-white/[0.03] border border-white/[0.08] focus:border-violet-500/60 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none transition-all"
+                    />
                   </div>
 
                   <div>

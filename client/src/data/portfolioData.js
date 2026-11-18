@@ -8,11 +8,11 @@ export const personalInfo = {
   email: "danihailhabt321@gmail.com",
   github: "https://github.com/daniman2115",
   linkedin: "https://linkedin.com/in/daniel-hailu-4a7bb741a",
-  resumePath: "/Daniel_Hailu_Resume (9).pdf",
+  resumePath: "/Daniel_Hailu_CV_Updated.pdf",
   profileImage: "/prof2.jpg",
   availability: "Available for Full-Time Roles & High-Impact Contracts",
   yearsExperience: "3+",
-  shippedProjects: "20+",
+  shippedProjects: "5+",
   education: "B.Sc. in Software Engineering — Debre Berhan University",
   roles: [
     "Full-Stack Web Developer",
@@ -25,8 +25,8 @@ export const personalInfo = {
 }
 
 export const metrics = [
-  { label: "Years Experience", value: "3+", detail: "Full-stack & mobile engineering" },
-  { label: "Shipped Projects", value: "20+", detail: "Web apps, APIs & mobile builds" },
+  { label: "Years Experience", value: "1+", detail: "Full-stack & mobile engineering" },
+  { label: "Shipped Projects", value: "5+", detail: "Web apps, APIs & mobile builds" },
   { label: "Mobile Performance", value: "60 FPS", detail: "Native gestures & fluid touch" },
   { label: "API Latency Focus", value: "<100ms", detail: "Optimized queries & caching" },
 ]

@@ -39,10 +39,6 @@ const getTransporter = () => {
   const user = (process.env.EMAIL_USER || "").trim();
   const pass = (process.env.EMAIL_PASS || "").replace(/\s+/g, "");
 
-  console.log(
-    `📧 SMTP → host:${host} port:${port} secure:${secure} user:${user}`
-  );
-
   return nodemailer.createTransport({
     host,
     port,
@@ -79,7 +75,6 @@ export const sendEmail = async (
   // 🔍 Verify connection
   try {
     await transporter.verify();
-    console.log("✅ SMTP verified");
   } catch (err) {
     console.error("❌ SMTP VERIFY ERROR:");
     console.error("Code:", err.code);
@@ -97,10 +92,6 @@ export const sendEmail = async (
       html,
       ...options,
     });
-
-    console.log(
-      `✅ Email sent → ${recipient} | ID: ${info.messageId}`
-    );
 
     return info;
   } catch (err) {

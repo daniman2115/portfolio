@@ -87,10 +87,10 @@ export default function Hero() {
       <div className="absolute top-2/3 left-1/3 w-80 h-80 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
-        
+
         {/* Left Column — 7 cols */}
         <div className="lg:col-span-7 flex flex-col items-start text-left">
-          
+
           {/* Status pill badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/25 text-violet-300 text-xs font-medium mb-6 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -112,8 +112,8 @@ export default function Hero() {
 
           {/* Bio paragraph */}
           <p className="text-gray-400 text-base sm:text-lg leading-relaxed max-w-2xl mb-6">
-            I architect and build robust end-to-end applications: from fluid, 
-            <span className="text-white font-medium"> 60 FPS React Native mobile apps</span> to resilient 
+            I architect and build robust end-to-end applications: from fluid,
+            <span className="text-white font-medium"> 60 FPS React Native mobile apps</span> to resilient
             <span className="text-white font-medium"> distributed web systems</span> powered by React, Node.js, Express, Laravel, and SQL/NoSQL databases. Clean architecture, high performance, and rapid delivery.
           </p>
 
@@ -126,7 +126,7 @@ export default function Hero() {
             <div className="hidden sm:inline-block text-gray-600">|</div>
             <div className="flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-              <span>3+ Years Experience · 20+ Shipped Projects</span>
+              <span>1+ Years Experience · 20+ Shipped Projects</span>
             </div>
           </div>
 
@@ -199,7 +199,7 @@ export default function Hero() {
         {/* Right Column — 5 cols (Portrait + Telemetry Badges) */}
         <div className="lg:col-span-5 flex justify-center lg:justify-end relative">
           <div className="relative w-72 sm:w-84 md:w-96">
-            
+
             {/* Ambient halo effect */}
             <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/30 via-indigo-600/20 to-cyan-500/30 rounded-3xl blur-3xl scale-95 animate-glow-pulse" />
 
@@ -211,7 +211,7 @@ export default function Hero() {
                   alt={personalInfo.name}
                   className="w-full h-full object-cover object-top filter contrast-[1.03] hover:scale-105 transition-transform duration-700"
                 />
-                
+
                 {/* Subtle vignette */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#06060c] via-transparent to-transparent opacity-80" />
 
@@ -253,7 +253,7 @@ export default function Hero() {
             <div className="absolute top-1/2 -right-4 sm:-right-8 -translate-y-1/2 bg-[#0c0c1a]/90 backdrop-blur-md border border-emerald-500/30 rounded-2xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5 animate-float">
               <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
               <div>
-                <p className="text-base font-extrabold gradient-text leading-none">20+</p>
+                <p className="text-base font-extrabold gradient-text leading-none">3+</p>
                 <p className="text-[10px] text-gray-400 font-mono">Shipped Builds</p>
               </div>
             </div>
