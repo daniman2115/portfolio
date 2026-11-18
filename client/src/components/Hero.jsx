@@ -126,7 +126,7 @@ export default function Hero() {
             <div className="hidden sm:inline-block text-gray-600">|</div>
             <div className="flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-              <span>1+ Years Experience · 20+ Shipped Projects</span>
+              <span>1+ Years Experience · 5+ Shipped Projects</span>
             </div>
           </div>
 
