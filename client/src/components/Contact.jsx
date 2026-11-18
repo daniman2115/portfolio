@@ -16,7 +16,8 @@ import {
 } from 'lucide-react'
 import { personalInfo } from '../data/portfolioData'
 
-const APIBASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/'
+const rawApiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+const API_URL = `${rawApiBase.replace(/\/+$/, '')}/api/contact`
 
 const GitHubIcon = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -40,6 +41,7 @@ export default function Contact() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(null)
   const [feedback, setFeedback] = useState(null)
 
   const handleChange = (e) => {
@@ -55,10 +57,11 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
+    setErrorMessage(null)
     setFeedback(null)
 
     try {
-      const response = await fetch(`${APIBASE}api/contact`, {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -69,31 +72,34 @@ export default function Contact() {
         }),
       })
 
+      const result = await response.json().catch(() => ({}))
 
-      const result = await response.json()
-      console.log({result});
-      // const result = await response.json().catch(() => ({}))
-
-      if (response.ok) {
+      if (response.ok && (result.success !== false)) {
         setSubmitted(true)
-        setFeedback({ type: 'success', text: 'Message delivered! Daniel will get back to you shortly.' })
-        setForm({ name: '', email: '', subject: '', message: '' })
-      } else {
-        // Still give user a clean fallback
-        setSubmitted(true)
+        setErrorMessage(null)
         setFeedback({
           type: 'success',
-          text: 'Message received! You can also reach me directly at danihailhabt321@gmail.com',
+          text: result.message || 'Message delivered successfully! Daniel will get back to you shortly.',
         })
+        setForm({ name: '', email: '', subject: '', message: '' })
+      } else {
+        // Deployed server returned an error (e.g. SMTP rejection, invalid configuration, validation issue)
+        let errorMsg = result.message || 'Sorry, we encountered an error while sending your message. Please try again later.'
+        if (result.details && Array.isArray(result.details)) {
+          errorMsg = result.details.join(', ')
+        } else if (result.error && typeof result.error === 'string') {
+          errorMsg = `${errorMsg} (${result.error})`
+        }
+        setErrorMessage(errorMsg)
+        setSubmitted(false)
       }
     } catch (err) {
-      console.warn('Backend unavailable, fallback to direct email link:', err)
-      // Gentle offline fallback so recruiter is never blocked
-      setSubmitted(true)
-      setFeedback({
-        type: 'success',
-        text: 'Thanks! Your inquiry has been prepared. For immediate response, feel free to email me directly.',
-      })
+      console.error('Contact submission error:', err)
+      // Network failure, CORS issue, or server offline
+      setErrorMessage(
+        'Could not reach the email server (Network, CORS, or server offline). You can email Daniel directly below or try again.'
+      )
+      setSubmitted(false)
     } finally {
       setLoading(false)
     }
@@ -329,6 +335,42 @@ export default function Contact() {
                       className="w-full bg-white/[0.03] border border-white/[0.08] focus:border-violet-500/60 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none transition-all resize-none"
                     />
                   </div>
+
+                  {errorMessage && (
+                    <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-3">
+                      <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                      <div className="flex-1 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <p className="font-semibold text-rose-200">Email Delivery Failed</p>
+                          <button
+                            type="button"
+                            onClick={() => setErrorMessage(null)}
+                            className="text-rose-400 hover:text-rose-200 text-xs font-mono"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                        <p className="text-rose-300/90 leading-relaxed text-[11px]">{errorMessage}</p>
+                        <div className="pt-1 flex flex-wrap items-center gap-2">
+                          <a
+                            href={`mailto:${personalInfo.email}?subject=${encodeURIComponent(form.subject || 'Portfolio Contact')}&body=${encodeURIComponent(form.message)}`}
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-200 text-[11px] font-medium transition-colors"
+                          >
+                            <Mail className="w-3 h-3" />
+                            <span>Send via Your Email App</span>
+                          </a>
+                          <button
+                            type="button"
+                            onClick={copyEmail}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-gray-300 text-[11px] transition-colors"
+                          >
+                            {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                            <span>{copied ? 'Copied' : 'Copy Email'}</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <button
                     type="submit"
