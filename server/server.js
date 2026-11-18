@@ -1,21 +1,16 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import http from "http";
 import connectDB from "./config/db.js";
-import ContactRoutes from "./routes/contact-routes.js";
-
-
+import contactRoutes from "./routes/contact.routes.js";
 
 dotenv.config();
 
-export const app = express();
+const app = express();
+
 app.set("trust proxy", 1);
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -32,35 +27,12 @@ app.use(
   })
 );
 
+// Routes
+app.use("/api/contact", contactRoutes);
 
-const server = http.createServer(app);
-
-const startServer = async () => {
-  try {
-    console.log("🔄 Connecting to database...");
-    if (process.env.NODE_ENV !== "test") {
-      await connectDB();
-    }
-    console.log("🔌 Initializing Socket.IO...");
-
-
-
-
-
-    app.use("/api/contact", ContactRoutes);
-
-    const PORT = process.env.PORT || 5000;
-
-    server.listen(PORT, "0.0.0.0", () => {
-      console.log(`🚀 Server running on port: ${PORT}`);
-    });
-
-  } catch (error) {
-    console.error("❌ Failed to start server:", error);
-    process.exit(1);
-  }
-};
-
-startServer();
+// DB connection (skipped in serverless — called at startup only)
+if (process.env.NODE_ENV !== "test") {
+  connectDB();
+}
 
 export default app;

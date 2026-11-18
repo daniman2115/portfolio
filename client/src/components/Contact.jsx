@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 import { personalInfo } from '../data/portfolioData'
 
-const APIBASE = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+const APIBASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/'
 
 const GitHubIcon = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -58,7 +58,7 @@ export default function Contact() {
     setFeedback(null)
 
     try {
-      const response = await fetch(`${APIBASE}/api/contact`, {
+      const response = await fetch(`${APIBASE}api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
