@@ -152,14 +152,6 @@ export default function Hero() {
               <Download className="w-4 h-4 text-violet-400" />
               <span>Download CV</span>
             </a>
-
-            <a
-              href="#terminal"
-              className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl font-mono text-xs text-gray-300 bg-[#0d0d18] border border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 hover:-translate-y-0.5"
-            >
-              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Interactive CLI</span>
-            </a>
           </div>
 
           {/* Social connections */}

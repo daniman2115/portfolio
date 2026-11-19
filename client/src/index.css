@@ -144,14 +144,6 @@ html, body {
   border-radius: 44px;
 }
 
-/* Terminal scrollbar */
-.terminal-body::-webkit-scrollbar {
-  width: 4px;
-}
-.terminal-body::-webkit-scrollbar-thumb {
-  background: #374151;
-  border-radius: 4px;
-}
 
 /* Blinking cursor */
 @keyframes blink {

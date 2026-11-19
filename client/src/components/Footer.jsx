@@ -20,7 +20,6 @@ const footerLinks = [
   { label: 'Projects', href: '#projects' },
   { label: 'Architecture', href: '#skills' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Terminal', href: '#terminal' },
   { label: 'Contact', href: '#contact' },
 ]
 

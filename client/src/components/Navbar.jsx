@@ -8,7 +8,6 @@ const navLinks = [
   { label: 'Projects', href: '#projects' },
   { label: 'Architecture', href: '#skills' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Terminal', href: '#terminal' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -21,7 +20,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 25)
 
-      const sectionIds = ['contact', 'terminal', 'experience', 'skills', 'projects', 'mobile-spotlight', 'hero']
+      const sectionIds = ['contact', 'experience', 'skills', 'projects', 'mobile-spotlight', 'hero']
       for (const id of sectionIds) {
         const el = document.getElementById(id)
         if (el) {

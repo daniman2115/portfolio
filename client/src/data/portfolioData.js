@@ -149,21 +149,24 @@ export const projects = [
     isMobile: false,
     stats: "<50ms Socket Broadcast",
   },
+
+
   {
-    id: "chamber-commerce-social",
-    title: "Chamber of Commerce & Social Media Platforms",
-    category: "Full-Stack",
-    badge: "Enterprise Web & Mobile",
+    id: "virtualtour",
+    title: "VirtualTour – Live Guide App",
+    category: "Mobile",
+    badge: "React Native (iOS & Android)",
     description:
-      "Developed at Fanaye Technologies: A robust commerce portal and social application featuring Laravel backend services, MySQL transactions, role-based permissions, and React Native frontend views.",
-    tags: ["Laravel", "PHP", "MySQL", "React Native", "REST API", "RBAC"],
-    github: "https://github.com/daniman2115",
-    live: "https://github.com/daniman2115",
-    image: "/AIMDS.png",
-    featured: false,
-    isMobile: false,
-    stats: "Production Deployed",
-  },
+      "A full-stack virtual tour marketplace where travelers connect with local guides via live video calls and real-time chat. Features multi-step auth, Stream Chat/Video SDK integration, booking flow, and role-based onboarding.",
+    tags: ["React Native", "Expo", "Node.js", "MongoDB", "Stream Chat", "Stream Video", "Redux Toolkit", "NativeWind"],
+    github: "https://github.com/daniman2115/tour",
+    live: "https://github.com/daniman2115/tour",
+    image: "/tour2.jpg",
+    featured: true,
+    isMobile: true,
+    stats: "Live Video · Real-time Chat",
+  }
+
 ]
 
 export const skillCategories = [
@@ -260,71 +263,4 @@ export const engineeringProcess = [
   },
 ]
 
-export const terminalResponses = {
-  help: [
-    "Available commands:",
-    "  • bio        - Read a quick summary about Daniel",
-    "  • experience - View production work at Fanaye Technologies",
-    "  • stack      - View core tech stack & frameworks",
-    "  • mobile     - Review React Native mobile experience",
-    "  • projects   - List shipped featured projects",
-    "  • education  - View Software Engineering degree & certifications",
-    "  • contact    - Get email, phone, location, and social links",
-    "  • hire       - Reasons to bring Daniel on your team",
-    "  • clear      - Clear terminal screen",
-  ],
-  bio: [
-    "Daniel Hailu is a Full-Stack Web & Mobile App Developer based in Addis Ababa, Ethiopia.",
-    "B.Sc. graduate in Software Engineering from Debre Berhan University.",
-    "Specializes in cross-platform mobile apps (React Native) and scalable web platforms (React, Node.js, Express, Laravel, PostgreSQL, MongoDB).",
-    "Experienced in Agile Scrum teams at Fanaye Technologies, building production web & mobile systems.",
-  ],
-  experience: [
-    "Full Stack Web & Mobile Application Developer — Fanaye Technologies (03/2025 – 06/2025):",
-    "  • Built full-stack web and mobile applications using React, React Native, Node.js, Laravel, and MySQL.",
-    "  • Engineered Chamber of Commerce web & mobile portal and social media application backend.",
-    "  • Designed RESTful APIs, role-based access control (RBAC), and inventory tracking.",
-  ],
-  stack: [
-    "Frontend:  React 19, Next.js, Tailwind CSS v4, JavaScript (ES6+), HTML5/CSS3",
-    "Mobile:    React Native, Expo, AsyncStorage, Native Gestures, Mobile UI/UX",
-    "Backend:   Node.js, Express, Laravel (PHP), REST APIs, Socket.io, GraphQL",
-    "Databases: PostgreSQL, MongoDB, MySQL",
-    "DevOps:    Git/GitHub, CI/CD, Render, Agile Scrum, Docker basics",
-  ],
-  mobile: [
-    "React Native Specialist:",
-    "  • Cross-platform iOS & Android mobile applications via Expo & React Native CLI",
-    "  • Offline-first architectures using local caches & persistent storage",
-    "  • Fluid 60fps micro-interactions, responsive touch targets, and dark-mode native themes",
-    "  • Examples: CineFlow Movie App (TMDb sync) & Chamber of Commerce Mobile App",
-  ],
-  projects: [
-    "1. CineFlow Movie App — React Native (Expo) + TMDb API (Mobile)",
-    "2. AIMDS Enterprise Platform — Full-Stack MERN (Awarded Certification of Appreciation)",
-    "3. OmniChat Messenger — React + Socket.io Real-Time Engine (Render Cloud)",
-    "4. Chamber of Commerce & Social Media Platforms — Laravel + React Native + MySQL",
-  ],
-  education: [
-    "• B.Sc. in Software Engineering — Debre Berhan University (2022 – 2026)",
-    "• Certification of Appreciation — AIMDS Final Year Project",
-    "• Programming Fundamentals Nanodegree — Udacity (2024)",
-    "• Languages: English (Proficient), Amharic (Native)",
-  ],
-  contact: [
-    "Email:    danihailhabt321@gmail.com",
-    "Phone:    +251 963 173 142",
-    "GitHub:   https://github.com/daniman2115",
-    "LinkedIn: https://linkedin.com/in/daniel-hailu-4a7bb741a",
-    "Location: Addis Ababa, Ethiopia (UTC+3)",
-    "Status:   Available for Full-Time & High-Impact Contracts",
-  ],
-  hire: [
-    "Why hire Daniel Hailu?",
-    "✓ Dual Competency: Deliver both the web app and the native mobile app from one engineer.",
-    "✓ Production Experience: Built real software for Fanaye Technologies and university cooperatives.",
-    "✓ End-to-End Ownership: From database schema design to pixel-perfect mobile animations.",
-    "✓ Real-Time Mastery: Proven experience in WebSockets, live messaging, and event-driven architecture.",
-    "✓ Reliable & Communicative: Rapid turnaround, clean git history, and dedication to code quality.",
-  ],
-}
+

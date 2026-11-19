@@ -4,7 +4,6 @@ import MobileShowcase from './components/MobileShowcase'
 import Projects from './components/Projects'
 import ArchitectureSkills from './components/ArchitectureSkills'
 import ExperienceSection from './components/ExperienceSection'
-import DevTerminal from './components/DevTerminal'
 import ProcessWorkflow from './components/ProcessWorkflow'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -19,7 +18,6 @@ function App() {
         <Projects />
         <ArchitectureSkills />
         <ExperienceSection />
-        <DevTerminal />
         <ProcessWorkflow />
         <Contact />
       </main>
