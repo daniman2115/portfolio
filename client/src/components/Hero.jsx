@@ -208,7 +208,7 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#06060c] via-transparent to-transparent opacity-80" />
 
                 {/* Bottom title overlay */}
-                <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-[#0b0b14]/85 backdrop-blur-md border border-white/[0.08]">
+                <div className="absolute bottom-10 left-4 right-4 p-3 rounded-xl bg-[#0b0b14]/85 backdrop-blur-md border border-white/[0.08]">
                   <p className="text-xs font-mono text-cyan-400 font-semibold uppercase tracking-wider">
                     Daniel Hailu
                   </p>
@@ -231,7 +231,7 @@ export default function Hero() {
             </div>
 
             {/* Telemetry Badge 2: Full Stack Node/Laravel (Bottom Left) */}
-            <div className="absolute -bottom-4 -left-6 sm:-left-8 bg-[#0c0c1a]/90 backdrop-blur-md border border-violet-500/30 rounded-2xl p-3 shadow-xl flex items-center gap-3 animate-float-slow">
+            <div className="absolute -bottom-8 -left-6 sm:-left-8 bg-[#0c0c1a]/90 backdrop-blur-md border border-violet-500/30 rounded-2xl p-3 shadow-xl flex items-center gap-3 animate-float-slow">
               <div className="w-9 h-9 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
                 <Globe className="w-4 h-4" />
               </div>
