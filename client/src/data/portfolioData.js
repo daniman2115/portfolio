@@ -105,20 +105,31 @@ export const mobileProject = {
 
 export const projects = [
   {
-    id: "movie-app",
-    title: "CineFlow Mobile App",
-    category: "Mobile",
-    badge: "React Native (iOS & Android)",
-    description:
-      "A responsive mobile discovery app featuring instant search, live TMDb ratings, trailers, and offline watchlists built with clean gesture navigation.",
-    tags: ["React Native", "Expo", "TMDb API", "Tailwind", "AsyncStorage"],
-    github: "https://github.com/daniman2115/react-native-movie-app",
-    live: "https://github.com/daniman2115/react-native-movie-app",
-    image: "/movie-app.png",
-    featured: true,
-    isMobile: true,
-    stats: "60 FPS · Cross-Platform",
-  },
+  id: "shopnative",
+  title: "ShopNative",
+  category: "Mobile",
+  badge: "React Native (iOS & Android)",
+  description:
+    "A full-stack mobile commerce app with JWT auth, silent token refresh, cart & 3-step checkout pipeline, live flash deals countdown, swipeable product galleries, and an animated order confirmation — powered by a custom REST API.",
+  tags: [
+    "React Native",
+    "Expo SDK 57",
+    "TypeScript",
+    "Expo Router",
+    "Redux Toolkit",
+    "Axios",
+    "expo-secure-store",
+    "expo-linear-gradient",
+    "Reanimated 4",
+  ],
+  github: "https://github.com/YOUR_USERNAME/shopnative",
+  live: "https://github.com/YOUR_USERNAME/shopnative",
+  image: "/shopnative.jpg",
+  featured: true,
+  isMobile: true,
+  stats: "iOS & Android · Full-Stack",
+},
+ 
   {
     id: "aimds",
     title: "Agricultural Inputs Management & Distribution System",
@@ -150,6 +161,22 @@ export const projects = [
     stats: "<50ms Socket Broadcast",
   },
 
+   {
+    id: "movie-app",
+    title: "CineFlow Mobile App",
+    category: "Mobile",
+    badge: "React Native (iOS & Android)",
+    description:
+      "A responsive mobile discovery app featuring instant search, live TMDb ratings, trailers, and offline watchlists built with clean gesture navigation.",
+    tags: ["React Native", "Expo", "TMDb API", "Tailwind", "AsyncStorage"],
+    github: "https://github.com/daniman2115/react-native-movie-app",
+    live: "https://github.com/daniman2115/react-native-movie-app",
+    image: "/movie-app.png",
+    featured: true,
+    isMobile: true,
+    stats: "60 FPS · Cross-Platform",
+  },
+
 
   {
     id: "virtualtour",
@@ -170,6 +197,8 @@ export const projects = [
 ]
 
 export const skillCategories = [
+  
+
   {
     category: "Mobile App Development",
     iconName: "Smartphone",

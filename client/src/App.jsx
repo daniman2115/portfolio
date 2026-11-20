@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <MobileShowcase />
+        {/* <MobileShowcase /> */}
         <Projects />
         <ArchitectureSkills />
         <ExperienceSection />

@@ -84,7 +84,7 @@ export default function ArchitectureSkills() {
 
                   {/* Skills List */}
                   <ul className="space-y-3 mb-6">
-                    {group.skills.map((skill) => (
+                    {group?.skills?.map((skill) => (
                       <li
                         key={skill.name}
                         className="flex items-center justify-between text-xs pb-2 border-b border-white/[0.04]"
